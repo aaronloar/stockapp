@@ -42,6 +42,10 @@ def sma(symbol):
     print(type(data))
     print(len(data["Technical Analysis: SMA"]))
 
+    # ToDo: parse through SMA returned data (by date "2017-09-22": 123.456)
+    # ToDo: find latest sample
+    # ToDo: Start on the next values...
+
     return render_template("stockdata.html", symbol=symbol, data=data["Technical Analysis: SMA"])
 
 
