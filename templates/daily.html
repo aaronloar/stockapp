@@ -1,0 +1,22 @@
+<html>
+<head>
+    <link rel="stylesheet" href='/static/style.css' />
+</head>
+<body>
+
+    <h3>Symbol:</h3><h1>{{ symbol }}</h1>
+
+    <p>SMA: {{ sma }}</p>
+    <p>Calculated SMA: {{ c_sma }}</p>
+    <p>RSI14: {{ rsi }}</p>
+
+    <p>Calculated RSI: {{ c_rsi }}</p>
+
+    <!-- Current price: {{ close }} -->
+
+    <pre>Meta Data:<br>{{ meta }}</pre>
+
+    <pre>Time Series (Daily):<br><br>{{ data }}</pre>
+
+</body>
+</html>
