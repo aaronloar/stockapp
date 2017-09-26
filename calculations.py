@@ -58,10 +58,6 @@ def rsi(data, period):
     avg_gain = sum_gain / period
     avg_loss = sum_loss / period
 
-    print("Gains: {:.4f}   Gains / period: {:.4f}".format(sum_gain, avg_gain))
-    print("Losses: {:.4f}  Losses / period: {:.4f}".format(sum_loss, avg_loss))
-
-    print(len(sorted_keys) - period)
     _rsi = 0
 
     for i in range(period + 1, len(sorted_keys)):
@@ -87,7 +83,54 @@ def rsi(data, period):
         #       format(i, sorted_keys[i - 1], yest_close, sorted_keys[i], close, cur_gain, cur_loss,
         #              avg_gain, avg_loss, _rsi))
 
-    print("RSI({}): {:.4f}".format(period, _rsi))
     return _rsi
+
+
+def atr(data, period):
+
+    sorted_keys = sorted(data.keys())
+    _atr = 0
+
+    # loop through sorted_keys, starting at second
+    # oldest entry (because we need yesterday's close)
+    for i in range(1, period + 1):
+        t_hi = float(data[sorted_keys[i]]['2. high'])
+        t_lo = float(data[sorted_keys[i]]['3. low'])
+        y_c = float(data[sorted_keys[i - 1]]['4. close'])
+
+        tr1 = t_hi - t_lo  # Today's high - today's low
+        tr2 = abs(t_hi - y_c)  # Today's high - yesterday's close
+        tr3 = abs(y_c - t_lo)  # Yesterday's close - today's low
+
+        tr = max(tr1, tr2, tr3)  # The max of the three TRs
+
+        _atr += tr  # Sum tr's for the first period days
+
+    _atr /= period  # Average of first <period> day's TRs
+
+    for i in range(period + 1, len(sorted_keys)):
+        t_hi = float(data[sorted_keys[i]]['2. high'])
+        t_lo = float(data[sorted_keys[i]]['3. low'])
+        y_c = float(data[sorted_keys[i - 1]]['4. close'])
+
+        tr1 = t_hi - t_lo  # Today's high - today's low
+        tr2 = abs(t_hi - y_c)  # Today's high - yesterday's close
+        tr3 = abs(y_c - t_lo)  # Yesterday's close - today's low
+
+        tr = max(tr1, tr2, tr3)  # The max of the three TRs
+
+        _atr = ((_atr * (period - 1)) + tr) / period
+
+    return _atr
+
+
+def low3(data):
+    sorted_keys = sorted(data.keys())
+
+    low = min(float(data[sorted_keys[-1]]['3. low']),
+              float(data[sorted_keys[-2]]['3. low']),
+              float(data[sorted_keys[-3]]['3. low']))
+
+    return low
 
 

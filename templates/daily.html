@@ -6,17 +6,13 @@
 
     <h3>Symbol:</h3><h1>{{ symbol }}</h1>
 
-    <p>SMA: {{ sma }}</p>
     <p>Calculated SMA: {{ c_sma }}</p>
-    <p>RSI14: {{ rsi }}</p>
-
     <p>Calculated RSI: {{ c_rsi }}</p>
+    <p>ATR: {{ c_atr }}</p>
+    <p>3 Day Low: {{ c_low3 }}</p>
 
-    <!-- Current price: {{ close }} -->
+    <p>Meta Data:<br><pre>{{ meta }}</pre></p>
 
-    <pre>Meta Data:<br>{{ meta }}</pre>
-
-    <pre>Time Series (Daily):<br><br>{{ data }}</pre>
 
 </body>
 </html>
