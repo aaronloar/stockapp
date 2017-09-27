@@ -62,10 +62,10 @@ def get_daily(symbol):
     return render_template("daily.html",
                            symbol=symbol,
                            meta=f_meta,
-                           c_sma=calculations.sma(data, 200),
-                           c_rsi=calculations.rsi(data, 3),
-                           c_atr=calculations.atr(data, 14),
-                           c_low3=calculations.low3(data),
+                           c_sma="{:.4f}".format(calculations.sma(data, 200)),
+                           c_rsi="{:.4f}".format(calculations.rsi(data, 3)),
+                           c_atr="{:.4f}".format(calculations.atr(data, 14)),
+                           c_low3="{:.2f}".format(calculations.low3(data)),
                            )
 
 
