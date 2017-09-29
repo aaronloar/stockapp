@@ -1,0 +1,47 @@
+<html>
+<head>
+    <link rel="stylesheet" href='/static/style.css' />
+</head>
+<body>
+
+    <div class=header id=header>
+        <div id="header_symbol">Symbol:<br><span>{{ info.symbol }}</span></div>
+    </div>
+
+    <div class="stock_info">
+        <div class="stock_data">
+            <div class="data_point">Close:
+                <span class="value" id="close">{{ info.close_price }}
+                    <span class="change" delta="({{ info.close_change }})"></span>
+                </span>
+            </div>
+
+            <div class="data_point">SMA: <span class="value" id="sma">{{ info.c_sma }}</span></div>
+            <div class="data_point">RSI: <span class="value" id="rsi">{{ info.c_rsi }}</span></div>
+            <div class="data_point">ATR: <span class="value" id="atr">{{ info.c_atr }}</span></div>
+            <div class="data_point">3 Day Low: <span class="value" id="low3">{{ info.c_low3 }}</span></div>
+
+        </div>
+
+        <div class="ten_mm">
+            <div class="data_point">Update: <span class="value" id="close_date">{{ info.close_date }}</span></div>
+            <div class="data_point">Stop: <span class="value" id="stop">{{ info.c_stop }}</span></div>
+            <div class="data_point">Max Loss: <span class="value" id="max_loss">{{ info.c_max_loss }}</span></div>
+        </div>
+        <div class="spacer" style="clear: both;"></div>
+    </div>
+
+    <div class="raw_data">
+        Raw Data:
+        <pre>{{ info.data }}</pre>
+    </div>
+
+    <div class="meta_data">
+        Meta Data:
+        <pre>{{ info.meta }}</pre>
+    </div>
+
+
+
+</body>
+</html>

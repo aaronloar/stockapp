@@ -1,0 +1,76 @@
+
+.header {
+    margin-bottom: 10px;
+}
+.header span {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: green;
+}
+
+.stock_info {
+    float: left;
+    width: 550px;
+    /*border: 1px solid blue;*/
+    margin-bottom: 20px;
+}
+
+.stock_data, .ten_mm {
+    float: left;
+    width: 250px;
+    margin-right: 25px;
+}
+
+.data_point {
+    font-family: courier;
+    border: 1px solid blue;
+    border-radius: 3px;
+    margin-bottom: 5px;
+    position: relative;
+
+}
+
+.data_point .value {
+    position: absolute;
+    right: 20px;
+}
+
+
+
+
+
+.change:after{
+    content: attr(delta);
+    color: green;
+}
+
+.change[delta^="(-"]:after {
+    color: red;
+}
+
+#close_date {
+    font-size: .75em;
+}
+
+.meta_data {
+    position: absolute;
+    bottom: 10px;
+    width: 500px;
+    display: table;
+    font-size: 10px;
+    font-family: arial;
+}
+
+.meta_data pre{
+    white-space: pre-wrap;       /* css-3 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+
+.raw_data {
+    font-size: 8px;
+    color: grey;
+    float: right;
+}

@@ -1,6 +1,5 @@
-
-import calculations
 import test_data
+from app import calculations
 
 period = 14
 

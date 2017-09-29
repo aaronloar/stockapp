@@ -1,4 +1,7 @@
 
+import requests
+from stockapp import app
+
 
 def sma(data, period):
     """
@@ -134,3 +137,34 @@ def low3(data):
     return low
 
 
+def close_price(symbol):
+    params = {"function": "TIME_SERIES_INTRADAY",
+              "symbol": str(symbol).upper(),
+              "interval": "1min",
+              "apikey": app.config["API_KEY"]
+              }
+
+    r = requests.get(app.config["URL"], params=params)
+
+    if r.status_code != 200:
+        print("Error getting intraday data: {}\n{}".format(r.status_code, r.text))
+        return "Error code: {}\nData: {}".format(r.status_code, r.text)
+
+    else:
+        data = r.json()['Time Series (1min)']
+
+        last_date = sorted(data.keys())[-1]
+        last = data[last_date]
+        for k, v in last.items():
+            last[k] = float(v)
+
+        print("{}  {}  {}  {}".format(last_date, last["1. open"], last["4. close"], last["4. close"] - last["1. open"]))
+        return last, last_date
+
+
+def get_stop(low, a):
+    return low - (1.5 * a)
+
+
+def get_max_loss(price, stop):
+    return price - stop

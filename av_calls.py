@@ -1,8 +1,7 @@
 import requests
 
-URL = "https://www.alphavantage.co/query"
-API_KEY = "CCJ9QRK2JHEB3EJ4"
-
+API_KEY = None
+URL = None
 
 def sma200(symbol):
 
