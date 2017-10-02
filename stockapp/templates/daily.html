@@ -9,16 +9,17 @@
     </div>
 
     <div class="stock_info">
-        <div class="stock_data">
-            <div class="data_point">Close:
-                <span class="value" id="close">{{ info.close_price }}
-                    <span class="change" delta="({{ info.close_change }})"></span>
-                </span>
-            </div>
 
-            <div class="data_point">SMA: <span class="value" id="sma">{{ info.c_sma }}</span></div>
-            <div class="data_point">RSI: <span class="value" id="rsi">{{ info.c_rsi }}</span></div>
-            <div class="data_point">ATR: <span class="value" id="atr">{{ info.c_atr }}</span></div>
+        <div class="close_price">
+            <span class="value" id="close">{{ info.close_price }}
+                <span class="change" delta="({{ info.close_change }})"></span>
+            </span>
+        </div>
+
+        <div class="stock_data">
+            <div class="data_point">SMA(200): <span class="value" id="sma">{{ info.c_sma }}</span></div>
+            <div class="data_point">RSI(3): <span class="value" id="rsi">{{ info.c_rsi }}</span></div>
+            <div class="data_point">ATR(14): <span class="value" id="atr">{{ info.c_atr }}</span></div>
             <div class="data_point">3 Day Low: <span class="value" id="low3">{{ info.c_low3 }}</span></div>
 
         </div>
