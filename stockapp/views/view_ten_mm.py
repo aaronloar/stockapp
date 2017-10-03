@@ -69,7 +69,7 @@ def get_daily(symbol):
 
     info = {"symbol": symbol,
             "meta": f_meta,
-            "data": f_data,
+            # "data": f_data,
             "close_price": "{:.2f}".format(close["4. close"]),
             "close_change": "{:.2f}".format(close["4. close"] - close_prev),
             "close_date": close_date,
