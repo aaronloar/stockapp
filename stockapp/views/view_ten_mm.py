@@ -82,7 +82,10 @@ def get_daily(symbol):
 
             }
 
-    return render_template("daily.html", info=info)
+    ts = time.time()
+    rt = render_template("daily.html", info=info)
+    print("Render time: {}".format(time.time() - ts))
+    return rt
 
 
 if __name__ == '__main__':
