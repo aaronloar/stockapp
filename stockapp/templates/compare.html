@@ -16,6 +16,7 @@
             </span>
         </div>
 
+        <h3>Calculated Data</h3>
         <div class="stock_data">
             <div class="data_point">SMA(200): <span class="value" id="sma">{{ info.c_sma }}</span></div>
             <div class="data_point">RSI(3): <span class="value" id="rsi">{{ info.c_rsi }}</span></div>
@@ -24,26 +25,15 @@
 
         </div>
 
-        <div class="ten_mm">
-            <div class="data_point">Update: <span class="value" id="close_date">{{ info.close_date }}</span></div>
-            <div class="data_point">Stop: <span class="value" id="stop">{{ info.c_stop }}</span></div>
-            <div class="data_point">Max Loss: <span class="value" id="max_loss">{{ info.c_max_loss }}</span></div>
+        <h3>AV Data</h3>
+        <div class="stock_data">
+            <div class="data_point">SMA(200): <span class="value" id="av_sma">{{ info.av_sma }}</span></div>
+            <div class="data_point">RSI(3): <span class="value" id="av_rsi">{{ info.av_rsi }}</span></div>
+            <div class="data_point">ATR(14): <span class="value" id="av_atr">{{ info.av_atr }}</span></div>
+            <div class="data_point">3 Day Low: <span class="value" id="av_low3">{{ info.av_low3 }}</span></div>
+
         </div>
-        <div class="spacer" style="clear: both;"></div>
-    </div>
 
-
-
-    <!--
-    <div class="raw_data">
-        Raw Data:
-        <pre>{{ info.data }}</pre>
-    </div>
-    -->
-
-    <div class="meta_data">
-        Meta Data:
-        <pre>{{ info.meta }}</pre>
     </div>
 
 
