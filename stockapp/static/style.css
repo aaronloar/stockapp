@@ -57,6 +57,19 @@
     color: red;
 }
 
+.rsi {
+    content: attr(
+    color: black;
+}
+
+.rsi[v<="20"]:after {
+    color: green;
+}
+
+.rsi[v>="80"]:after {
+    color: red;
+}
+
 #close_date {
     font-size: .75em;
 }
@@ -82,4 +95,29 @@
     font-size: 8px;
     color: grey;
     float: right;
+}
+
+
+
+table {
+    border-collapse: collapse;
+    margin: 20px;
+}
+
+tr:nth-child(odd){
+    background-color: #f2f2f2;
+}
+
+tr:hover {
+    background-color: #00d0d0;
+}
+
+th, td {
+    vertical-align: middle;
+    padding: 15px;
+}
+
+th {
+    background-color: white;
+    border-bottom: 1px solid black;
 }

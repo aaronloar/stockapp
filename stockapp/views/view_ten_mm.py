@@ -1,4 +1,3 @@
-
 import pprint
 import time
 
@@ -23,7 +22,6 @@ def stock_info(symbol):
 
 @app.route('/stock/<symbol>')
 def get_daily(symbol):
-
     sma_period = 200
     rsi_period = 3
     atr_period = 14
@@ -123,7 +121,6 @@ def raw_daily(symbol):
 
 @app.route('/compare/<symbol>')
 def compare_values(symbol):
-
     sma_period = 200
     rsi_period = 3
     atr_period = 14
@@ -186,6 +183,104 @@ def compare_values(symbol):
     rt = render_template("compare.html", info=info)
     print("Render time: {}".format(time.time() - ts))
     return rt
+
+
+@app.route('/pot')
+def pot_list():
+    name_list = ["AbbVie Inc", "The Scotts Miracle Gro Co A", "Canopy Growth Corp", "Aurora Cannabis Inc", "Aphria Inc",
+                 "Cara Therapeutics Inc", "Insys Therapeutics Inc", "AXIM Biotechnologies Inc",
+                 "CanniMed Therapeutics Inc", "22nd Century Group Inc", "Supreme Pharmaceuticals Inc",
+                 "OrganiGram Holdings Inc", "Terra Tech Corp", "Zynerba Pharmaceuticals Inc", "Kush Bottles Inc",
+                 "Helix TCS Inc", "Cannabis Science Inc", "Cannabics Pharmaceuticals Inc",
+                 "Cannabis Wheaton Income Corp", "Emblem Corp", "AeroGrow International Inc", "Cannabis Sativa Inc",
+                 "InMed Pharmaceuticals Inc", "mCig Inc", "Innovative Industrial Properties Inc A",
+                 "General Cannabis Corp", "General Cannabis Corp", "Lexaria Bioscience Corp", "United Cannabis Corp",
+                 "Players Network", "Americann Inc", "American Cannabis Co Inc", "Abattis Bioceuticals Corp",
+                 "GB Sciences Inc", "Medicine Man Technologies Inc", "Future Farm Technologies Inc",
+                 "Future Farm Technologies Inc", "Mentor Capital Inc", "Surna Inc", "MassRoots Inc", "CV Sciences Inc",
+                 "CV Sciences Inc", "Kaya Holdings Inc", "India Globalization Capital Inc",
+                 "Two Rivers Water & Farming Co", "MJ Holdings Inc", "Mountain High Acquisitions Corp",
+                 "Indoor Harvest Corp", "Potnetwork Holdings Inc", "Vapor Group Inc", "Blue Line Protection Group Inc",
+                 "Plandai Biotechnology Inc", "TechCare Corp", "Neutra Corp", "FBEC Worldwide Inc", "Hemp Inc",
+                 "GreenGro Technologies Inc", "CannaGrow Holdings Inc", "Ubiquitech Software Corp",
+                 "Medical Marijuana Inc", "Novus Acquisition & Development Corp", "Rocky Mountain High Brands Inc",
+                 "American Green Inc", "Endexx Corp"]
+
+    ticker_list = ["ABBV", "SMG", "TWMJF", "ACBFF", "APHQF", "CARA", "INSY", "AXIM", "CMMDF", "XXII", "SPRWF", "OGRMF",
+                   "TRTC", "ZYNE", "KSHB", "HLIX", "CBIS", "CNBX", "CBWTF", "EMMBF", "AERO", "CBDS", "IMLFF", "MCIG",
+                   "IIPR", "CANN", "CANN", "LXRP", "CNAB", "PNTV", "ACAN", "AMMJ", "ATTBF", "GBLX", "MDCL", "FFRMF",
+                   "FFRMF", "MNTR", "SRNA", "MSRT", "CVSI", "CVSI", "KAYS", "IGC", "TURV", "MJNE", "MYHI", "INQD",
+                   "POTN", "VPOR", "BLPG", "PLPL", "TECR", "NTRR", "FBEC", "HEMP", "GRNH", "CGRW", "UBQU", "MJNA",
+                   "NDEV", "RMHB", "ERBB", "EDXC"]
+
+    sma_period = 200
+    rsi_period = 3
+    atr_period = 14
+
+    ts = time.time()
+
+    dataset = []
+    print("Starting run...")
+    # Start loop
+    for i in range(len(ticker_list)):
+
+        ts1 = time.time()
+
+        params = {"function": "TIME_SERIES_DAILY",
+                  "symbol": ticker_list[i],
+                  "outputsize": "full",
+                  "data_type": "json",
+                  "apikey": app.config["API_KEY"]
+                  }
+
+        try:
+            r = requests.get(app.config["URL"], params=params)
+            r.raise_for_status()
+
+            data = r.json()['Time Series (Daily)']
+
+        except Exception as e:
+            dataset.append([{"index": i + 1,
+                             "name": name_list[i],
+                             "symbol": ticker_list[i],
+                             "close": "error",
+                             "change": "-",
+                             "sma": "-",
+                             "rsi": "-",
+                             "atr": "-",
+                             "low3": "-"
+                             }])
+            print("Error getting info for: {}  {:.4f}s".format(ticker_list[i], time.time() - ts1))
+        else:
+
+            close_date = sorted(data.keys())[-1]
+            close = data[close_date]
+            close_prev = float(data[sorted(data.keys())[-2]]["4. close"])
+
+            for k, v in close.items():
+                close[k] = float(v)
+
+            sma = calculations.sma(data, sma_period)
+            atr = calculations.atr(data, atr_period)
+            rsi = calculations.rsi(data, rsi_period)
+            low3 = calculations.low3(data)
+
+            dataset.append({"index": i + 1,
+                            "name": name_list[i],
+                            "symbol": ticker_list[i],
+                            "close": "{:.4f}".format(close["4. close"]),
+                            "change": "{:.3f}".format(close["4. close"] - close_prev),
+                            "sma": "{:.3f}".format(sma),
+                            "rsi": "{:.3f}".format(rsi),
+                            "atr": "{:.4f}".format(atr),
+                            "low3": "{:.4f}".format(low3)
+                            })
+
+            print("Got info for: {}  {:.4f}s".format(ticker_list[i], time.time() - ts1))
+
+    tl = render_template("pot.html", dataset=dataset)
+    print("Total time: {}".format(time.time() - ts))
+    return tl
 
 
 if __name__ == '__main__':

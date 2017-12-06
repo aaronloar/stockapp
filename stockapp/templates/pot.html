@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Pot Tickers</title>
+    <link rel="stylesheet" href='/static/style.css' />
+</head>
+<body>
+
+    <table>
+        <tr>
+            <th>Index</th>
+            <th>Name</th>
+            <th>Symbol</th>
+            <th>Close (Change)</th>
+            <th>RSI(3)</th>
+            <th>SMA(200)</th>
+            <th>ATR(14)</th>
+            <th>3 Day Low</th>
+        </tr>
+        {% for i in dataset %}
+        <tr>
+            <td class="idx">{{ i.index }}</td>
+            <td class="name">{{ i.name }}</td>
+            <td class="symbol">{{ i.symbol }}</td>
+            <td class="close">{{ i.close }} <span class="change" delta="({{ i.change }})"></span></td>
+            <td class="rsi">{{ i.rsi }}</td>
+            <td class="sma">{{ i.sma }}</td>
+            <td class="atr">{{ i.atr }}</td>
+            <td class="low3">{{ i.low3 }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+</body>
+</html>
