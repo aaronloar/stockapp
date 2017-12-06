@@ -217,7 +217,7 @@ def pot_list():
 
 
 @app.route('/pot/short')
-def pot_list():
+def pot_list_short():
     name_list = ["AbbVie Inc", "The Scotts Miracle Gro Co A", "Canopy Growth Corp", "Aurora Cannabis Inc", "Aphria Inc"]
     ticker_list = ["ABBV", "SMG", "TWMJF", "ACBFF", "APHQF"]
     return make_pot_table(name_list=name_list, ticker_list=ticker_list)
