@@ -213,6 +213,18 @@ def pot_list():
                    "POTN", "VPOR", "BLPG", "PLPL", "TECR", "NTRR", "FBEC", "HEMP", "GRNH", "CGRW", "UBQU", "MJNA",
                    "NDEV", "RMHB", "ERBB", "EDXC"]
 
+    return make_pot_table(name_list=name_list, ticker_list=ticker_list)
+
+
+@app.route('/pot/short')
+def pot_list():
+    name_list = ["AbbVie Inc", "The Scotts Miracle Gro Co A", "Canopy Growth Corp", "Aurora Cannabis Inc", "Aphria Inc"]
+    ticker_list = ["ABBV", "SMG", "TWMJF", "ACBFF", "APHQF"]
+    return make_pot_table(name_list=name_list, ticker_list=ticker_list)
+
+
+def make_pot_table(name_list, ticker_list):
+
     sma_period = 200
     rsi_period = 3
     atr_period = 14
