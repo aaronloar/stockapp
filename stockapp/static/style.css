@@ -57,19 +57,6 @@
     color: red;
 }
 
-.rsi {
-    content: attr(
-    color: black;
-}
-
-.rsi[v<="20"]:after {
-    color: green;
-}
-
-.rsi[v>="80"]:after {
-    color: red;
-}
-
 #close_date {
     font-size: .75em;
 }
